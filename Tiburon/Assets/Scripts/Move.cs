@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movimiento : MonoBehaviour
 {
-     public float speed = 5.0f; // Velocidad de movimiento
+    public float speed = 5.0f; // Velocidad de movimiento
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -20,7 +20,15 @@ public class Movimiento : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical"); // Obtenemos el input vertical (W, S, Up Arrow, Down Arrow)
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical); // Creamos un vector de movimiento
-    
+
         rb.velocity = movement * speed; // Aplicamos el movimiento al Rigidbody2D
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "boton") // Si el objeto con el que colisionamos tiene el tag "Objeto"
+        {
+            Debug.Log("Has tocado un objeto");
+        }
     }
 }
