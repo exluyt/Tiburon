@@ -19,7 +19,7 @@ public class Enemigo : MonoBehaviour
         GameObject emptyObject = GameObject.Find("Spawn"); // Encuentra el objeto vacío en la escena
         float yPosition = emptyObject.transform.position.y; // Obtiene la posición en el eje Y del objeto vacío
 
-        float[] zPositions = new float[] { -5, -7, -9 }; // Posiciones en el eje Z donde se crearán los enemigos
+        float[] zPositions = new float[] { 6, 3, 0}; // Posiciones en el eje Z donde se crearán los enemigos
 
         for (int i = 0; i < maxEnemies; i++) // Para cada enemigo hasta maxEnemies
         {

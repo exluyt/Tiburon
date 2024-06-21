@@ -30,11 +30,12 @@ public class Movimiento : MonoBehaviour
         {
             moveVertical += 1;
         }
+
         if (Input.GetAxis("Vertical") < 0) // Si se presiona la tecla de abajo, disminuimos moveVertical
         {
             moveVertical -= 1;
         }
-        
+
 
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical); // Creamos un vector de movimiento
 
@@ -55,7 +56,7 @@ public class Movimiento : MonoBehaviour
                 transform.position
                     .y; // Ajustamos la posición en el eje Y del bloque para que sea la misma que la del personaje
             GameObject block = Instantiate(blockPrefab, blockPosition, Quaternion.identity); // Creamos el bloque
-            Destroy(block, 0.2f); // Destruimos el bloque 0.5 segundos después
+            Destroy(block, 0.2f); // Destruimos el bloque 0.2 segundos después
         }
     }
 }

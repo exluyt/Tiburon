@@ -2,16 +2,27 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.transform.parent != null &&
-            collision.gameObject.transform.parent.tag ==
-            "enemigo") // Si el objeto con el que el bloque ha colisionado es hijo de un objeto con el tag "Enemigo"
+        if (other.gameObject
+            .CompareTag("enemigo")) // Si el objeto con el que el bloque está en contacto tiene el tag "enemigo"
         {
-            Destroy(collision.gameObject.transform.parent
-                .gameObject); // Destruimos el objeto padre con el que el bloque ha colisionado
+            Debug.Log("El bloque está en contacto con el enemigo.");
+
+            Rigidbody
+                enemyRb = other.gameObject.GetComponent<Rigidbody>(); // Obtenemos el componente Rigidbody del enemigo
+            if (enemyRb != null) // Si el enemigo tiene un componente Rigidbody
+            {
+                enemyRb.useGravity = false; // Desactivamos la gravedad
+            }
+
+            // Desactivamos el objeto
+            other.gameObject.SetActive(false);
+
+            // Destruimos el objeto
+            Destroy(other.gameObject);
+
+            Debug.Log("El objeto ha sido destruido.");
         }
     }
-    
-   
 }
