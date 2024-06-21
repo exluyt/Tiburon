@@ -5,7 +5,11 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     public float speed = 5.0f; // Velocidad de movimiento
+    public GameObject blockPrefab; // Prefab del bloque
+    public float blockDistance = 1.0f; // Distancia delante del jugador donde se creará el bloque
+    public Transform sphere; // Referencia a la esfera
     private Rigidbody rb;
+    private float lastMoveHorizontal; // Almacenamos la dirección del último movimiento
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +27,18 @@ public class Movimiento : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0); // Creamos un vector de movimiento
 
         rb.velocity = movement * speed; // Aplicamos el movimiento al Rigidbody
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "boton") // Si el objeto con el que colisionamos tiene el tag "Objeto"
+        if (moveHorizontal != 0) // Si el personaje se está moviendo horizontalmente
         {
-            Debug.Log("Has tocado un objeto");
+            lastMoveHorizontal = Mathf.Sign(moveHorizontal); // Almacenamos la dirección del último movimiento
+        }
+
+        if (Input.GetKeyDown(KeyCode.J)) // Si se presiona la tecla J
+        {
+            Vector3 blockPosition = transform.position + new Vector3(blockDistance * lastMoveHorizontal * 2, 0, 0);  // Calculamos la posición del bloque
+            blockPosition.y = transform.position.y; // Ajustamos la posición en el eje Y del bloque para que sea la misma que la del personaje
+            GameObject block = Instantiate(blockPrefab, blockPosition, Quaternion.identity); // Creamos el bloque
+            Destroy(block, 0.2f); // Destruimos el bloque 0.5 segundos después
         }
     }
 }
