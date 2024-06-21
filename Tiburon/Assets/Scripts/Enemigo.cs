@@ -16,16 +16,25 @@ public class Enemigo : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        float[] yPositions = new float[] { -5, -7, -9 }; // Posiciones en el eje Y donde se crearán los enemigos
+        GameObject emptyObject = GameObject.Find("Spawn"); // Encuentra el objeto vacío en la escena
+        float yPosition = emptyObject.transform.position.y; // Obtiene la posición en el eje Y del objeto vacío
+
+        float[] zPositions = new float[] { -5, -7, -9 }; // Posiciones en el eje Z donde se crearán los enemigos
 
         for (int i = 0; i < maxEnemies; i++) // Para cada enemigo hasta maxEnemies
         {
-            float yPosition = yPositions[Random.Range(0, yPositions.Length)]; // Escogemos una posición en el eje Y de manera aleatoria
-            Vector3 enemyPosition = new Vector3(transform.position.x, yPosition, transform.position.z); // Creamos un vector de posición para el enemigo manteniendo la posición en X y Z del objeto que crea los enemigos
+            float zPosition =
+                zPositions
+                    [Random.Range(0, zPositions.Length)]; // Escogemos una posición en el eje Z de manera aleatoria
+            Vector3
+                enemyPosition =
+                    new Vector3(transform.position.x, yPosition,
+                        zPosition); // Creamos un vector de posición para el enemigo manteniendo la posición en X del objeto que crea los enemigos y la posición en Y del objeto vacío
             Instantiate(enemyPrefab, enemyPosition, Quaternion.identity); // Creamos el enemigo
 
             float spawnTime = Random.Range(minSpawnTime, maxSpawnTime); // Calculamos un tiempo de spawn aleatorio
-            yield return new WaitForSeconds(spawnTime); // Esperamos el tiempo de spawn antes de crear el próximo enemigo
+            yield return
+                new WaitForSeconds(spawnTime); // Esperamos el tiempo de spawn antes de crear el próximo enemigo
         }
     }
 }

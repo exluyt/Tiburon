@@ -6,6 +6,7 @@ TagManager:
   tags:
   - boton
   - enemigo
+  - block
   layers:
   - Default
   - TransparentFX

@@ -15,16 +15,28 @@ public class Movimiento : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Obtenemos el componente Rigidbody
-        rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; // Bloqueamos el movimiento en el eje Z y la rotación en todos los ejes
+        rb.constraints = RigidbodyConstraints.FreezeRotation; //Bloqueamos la rotación en todos los ejes
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal"); // Obtenemos el input horizontal (A, D, Left Arrow, Right Arrow)
-        float moveVertical = Input.GetAxis("Vertical"); // Obtenemos el input vertical (W, S, Up Arrow, Down Arrow)
+        float moveHorizontal =
+            Input.GetAxis("Horizontal"); // Obtenemos el input horizontal (A, D, Left Arrow, Right Arrow)
+        float moveVertical = 0; // Inicializamos moveVertical a 0
 
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0); // Creamos un vector de movimiento
+        // Si se presiona la tecla de arriba, aumentamos moveVertical
+        if (Input.GetAxis("Vertical") > 0)
+        {
+            moveVertical += 1;
+        }
+        if (Input.GetAxis("Vertical") < 0) // Si se presiona la tecla de abajo, disminuimos moveVertical
+        {
+            moveVertical -= 1;
+        }
+        
+
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical); // Creamos un vector de movimiento
 
         rb.velocity = movement * speed; // Aplicamos el movimiento al Rigidbody
 
@@ -36,8 +48,12 @@ public class Movimiento : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J)) // Si se presiona la tecla J
         {
-            Vector3 blockPosition = transform.position + new Vector3(blockDistance * lastMoveHorizontal * 2, 0, 0);  // Calculamos la posición del bloque
-            blockPosition.y = transform.position.y; // Ajustamos la posición en el eje Y del bloque para que sea la misma que la del personaje
+            Vector3 blockPosition =
+                transform.position +
+                new Vector3(blockDistance * lastMoveHorizontal * 2, 0, 0); // Calculamos la posición del bloque
+            blockPosition.y =
+                transform.position
+                    .y; // Ajustamos la posición en el eje Y del bloque para que sea la misma que la del personaje
             GameObject block = Instantiate(blockPrefab, blockPosition, Quaternion.identity); // Creamos el bloque
             Destroy(block, 0.2f); // Destruimos el bloque 0.5 segundos después
         }
