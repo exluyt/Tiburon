@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 693543251718840337}
   m_Layer: 0
   m_Name: enemigo
-  m_TagString: Untagged
+  m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 3508866261272388469}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
